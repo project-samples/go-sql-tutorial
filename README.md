@@ -28,7 +28,7 @@ To check if the service is available.
 {
     "status": "UP",
     "details": {
-        "mongo": {
+        "sql": {
             "status": "UP"
         }
     }
