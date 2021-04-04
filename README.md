@@ -87,10 +87,7 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### *Response:* Return *a number*
-- 1: success
-- 0: duplicate key
-- -1: error
+#### *Response:* 1: success, 0: duplicate key, -1: error
 ```json
 1
 ```
@@ -108,10 +105,7 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### *Response:* Return *a number*
-- 1: success
-- 0: duplicate key
-- -1: error
+#### *Response:* 1: success, 0: not found, -1: error
 ```json
 1
 ```
@@ -121,10 +115,7 @@ PUT /users/wolverine
 ```shell
 DELETE /users/wolverine
 ```
-#### *Response:* Return *a number*
-- 1: success
-- 0: duplicate key
-- -1: error
+#### *Response:* 1: success, 0: not found, -1: error
 ```json
 1
 ```
