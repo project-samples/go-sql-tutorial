@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/common-go/health"
+
 	_ "github.com/go-sql-driver/mysql"
 
 	"go-service/internal/handlers"
@@ -24,11 +26,12 @@ create table if not exists users (
 )
 
 type ApplicationContext struct {
-	UserHandler *handlers.UserHandler
+	HealthHandler *health.HealthHandler
+	UserHandler   *handlers.UserHandler
 }
 
-func NewApp(context context.Context, dbConfig DatabaseConfig) (*ApplicationContext, error) {
-	db, err := sql.Open(dbConfig.Driver, dbConfig.DataSourceName)
+func NewApp(context context.Context, conf DatabaseConfig) (*ApplicationContext, error) {
+	db, err := sql.Open(conf.Driver, conf.DataSourceName)
 	if err != nil {
 		return nil, err
 	}
@@ -52,5 +55,13 @@ func NewApp(context context.Context, dbConfig DatabaseConfig) (*ApplicationConte
 
 	userService := services.NewUserService(db)
 	userHandler := handlers.NewUserHandler(userService)
-	return &ApplicationContext{UserHandler: userHandler}, nil
+
+	sqlChecker := health.NewSqlHealthChecker(db)
+	checkers := []health.HealthChecker{sqlChecker}
+	healthHandler := health.NewHealthHandler(checkers)
+
+	return &ApplicationContext{
+		HealthHandler: healthHandler,
+		UserHandler:   userHandler,
+	}, nil
 }

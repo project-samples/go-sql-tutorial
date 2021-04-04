@@ -19,6 +19,8 @@ func Route(r *mux.Router, context context.Context, dbConfig DatabaseConfig) erro
 		return err
 	}
 
+	r.HandleFunc("/health", app.HealthHandler.Check).Methods(GET)
+
 	userPath := "/users"
 	r.HandleFunc(userPath, app.UserHandler.GetAll).Methods(GET)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Load).Methods(GET)
