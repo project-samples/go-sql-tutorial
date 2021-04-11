@@ -163,9 +163,7 @@ To load the config from "config.yml", in "configs" folder
 ```go
 package main
 
-import (
-	"github.com/common-go/config"
-)
+import "github.com/common-go/config"
 
 type Root struct {
 	DB DatabaseConfig `mapstructure:"db"`
