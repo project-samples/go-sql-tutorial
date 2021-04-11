@@ -13,8 +13,8 @@ const (
 	DELETE = "DELETE"
 )
 
-func Route(r *mux.Router, context context.Context, dbConfig DatabaseConfig) error {
-	app, err := NewApp(context, dbConfig)
+func Route(r *mux.Router, ctx context.Context, dbConfig DatabaseConfig) error {
+	app, err := NewApp(ctx, dbConfig)
 	if err != nil {
 		return err
 	}
