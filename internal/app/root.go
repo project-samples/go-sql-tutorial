@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/common-go/log"
-	mid "github.com/common-go/log/middleware"
+	"github.com/core-go/log"
+	mid "github.com/core-go/log/middleware"
 )
 
 type Root struct {

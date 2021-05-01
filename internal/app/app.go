@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/common-go/health"
-	s "github.com/common-go/health/sql"
+	"github.com/core-go/health"
+	s "github.com/core-go/health/sql"
 	_ "github.com/go-sql-driver/mysql"
 
 	"go-service/internal/handlers"

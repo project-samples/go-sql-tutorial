@@ -121,13 +121,12 @@ DELETE /users/wolverine
 ```
 
 ## Common libraries
-- [common-go/health](https://github.com/common-go/health): include HealthHandler, HealthChecker, SqlHealthChecker
-- [common-go/config](https://github.com/common-go/config): to load the config file, and merge with other environments (SIT, UAT, ENV)
-- [common-go/log](https://github.com/common-go/log)
-- [common-go/middleware](https://github.com/common-go/middleware): to log all http requests, http responses. User can configure not to log the health check.
+- [core-go/health](https://github.com/core-go/health): include HealthHandler, HealthChecker, SqlHealthChecker
+- [core-go/config](https://github.com/core-go/config): to load the config file, and merge with other environments (SIT, UAT, ENV)
+- [core-go/log](https://github.com/core-go/log): log and log middleware
 
-### common-go/health
-To check if the service is available, refer to [common-go/health](https://github.com/common-go/health)
+### core-go/health
+To check if the service is available, refer to [core-go/health](https://github.com/core-go/health)
 #### *Request:* GET /health
 #### *Response:*
 ```json
@@ -142,67 +141,66 @@ To check if the service is available, refer to [common-go/health](https://github
 ```
 To create health checker, and health handler
 ```go
-	db, err := sql.Open(conf.Driver, conf.DataSourceName)
-	if err != nil {
-		return nil, err
-	}
+    db, err := sql.Open(conf.Driver, conf.DataSourceName)
+    if err != nil {
+        return nil, err
+    }
 
-	sqlChecker := health.NewSqlHealthChecker(db)
-	checkers := []health.HealthChecker{sqlChecker}
-	healthHandler := health.NewHealthHandler(checkers)
+    sqlChecker := s.NewSqlHealthChecker(db)
+    healthHandler := health.NewHealthHandler(sqlChecker)
 ```
 
 To handler routing
 ```go
-	r := mux.NewRouter()
-	r.HandleFunc("/health", healthHandler.Check).Methods("GET")
+    r := mux.NewRouter()
+    r.HandleFunc("/health", healthHandler.Check).Methods("GET")
 ```
 
-### common-go/config
+### core-go/config
 To load the config from "config.yml", in "configs" folder
 ```go
 package main
 
-import "github.com/common-go/config"
+import "github.com/core-go/config"
 
 type Root struct {
-	DB DatabaseConfig `mapstructure:"db"`
+    DB DatabaseConfig `mapstructure:"db"`
 }
 
 type DatabaseConfig struct {
-	Driver         string `mapstructure:"driver"`
-	DataSourceName string `mapstructure:"data_source_name"`
+    Driver         string `mapstructure:"driver"`
+    DataSourceName string `mapstructure:"data_source_name"`
 }
 
 func main() {
-	var conf Root
-	err := config.Load(&conf, "configs/config")
-	if err != nil {
-		panic(err)
-	}
+    var conf Root
+    err := config.Load(&conf, "configs/config")
+    if err != nil {
+        panic(err)
+    }
 }
 ```
 
-### common-go/log *&* common-go/middleware
+### core-go/log *&* core-go/middleware
 ```go
 import (
-	"github.com/common-go/config"
-	"github.com/common-go/log"
-	m "github.com/common-go/middleware"
-	"github.com/gorilla/mux"
+    "github.com/core-go/config"
+    "github.com/core-go/log"
+    m "github.com/core-go/middleware"
+    "github.com/gorilla/mux"
 )
 
 func main() {
-	var conf app.Root
-	config.Load(&conf, "configs/config")
+    var conf app.Root
+    config.Load(&conf, "configs/config")
 
-	r := mux.NewRouter()
+    r := mux.NewRouter()
 
-	log.Initialize(conf.Log)
-	r.Use(m.BuildContext)
-	logger := m.NewStructuredLogger()
-	r.Use(m.Logger(conf.MiddleWare, log.InfoFields, logger))
-	r.Use(m.Recover(log.ErrorMsg))
+    log.Initialize(conf.Log)
+    r.Use(m.BuildContext)
+    logger := m.NewStructuredLogger()
+    r.Use(m.Logger(conf.MiddleWare, log.InfoFields, logger))
+    r.Use(m.Recover(log.ErrorMsg))
 }
 ```
 To configure to ignore the health check, use "skips":

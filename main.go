@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/common-go/config"
-	"github.com/common-go/log"
-	mid "github.com/common-go/log/middleware"
+	"github.com/core-go/config"
+	"github.com/core-go/log"
+	mid "github.com/core-go/log/middleware"
 	"github.com/gorilla/mux"
 
 	"go-service/internal/app"
