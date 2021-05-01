@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/common-go/health"
-
+	s "github.com/common-go/health/sql"
 	_ "github.com/go-sql-driver/mysql"
 
 	"go-service/internal/handlers"
@@ -56,9 +56,8 @@ func NewApp(context context.Context, conf DatabaseConfig) (*ApplicationContext, 
 	userService := services.NewUserService(db)
 	userHandler := handlers.NewUserHandler(userService)
 
-	sqlChecker := health.NewSqlHealthChecker(db)
-	checkers := []health.HealthChecker{sqlChecker}
-	healthHandler := health.NewHealthHandler(checkers)
+	sqlChecker := s.NewHealthChecker(db)
+	healthHandler := health.NewHealthHandler(sqlChecker)
 
 	return &ApplicationContext{
 		HealthHandler: healthHandler,

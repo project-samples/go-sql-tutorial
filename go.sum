@@ -29,12 +29,10 @@ github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghf
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/common-go/config v0.0.9 h1:B8KIUD8T1SChNKWmhTWV3t9nsn7mO/fOKyRvQaq4Q6U=
 github.com/common-go/config v0.0.9/go.mod h1:q1FLnPrcmmHOyVSIGOhzR6YcwK63saWvww/tfXsu6q8=
-github.com/common-go/health v1.0.6 h1:RU1HKPk1fuNu1vCLTUBhYdrI8tMzioF9aqt77KXOb9w=
-github.com/common-go/health v1.0.6/go.mod h1:GFbpmNEjkv3GPiVsp+qE9W3RK2n4IP3CzKpdg/ik4+I=
-github.com/common-go/log v0.0.6 h1:3as6x1r5OYV/KMcknCIPJNzmuC2WE2XsbUWaZJEVoL4=
-github.com/common-go/log v0.0.6/go.mod h1:HSl/t/UyTyEfdQT5q5xu0KhM8i23+oNRCQu9HKR12EQ=
-github.com/common-go/middleware v0.1.0 h1:L0ib6srRM6IsZr4d72U2FRpwTyZFN8sEyPkqnh5RGEA=
-github.com/common-go/middleware v0.1.0/go.mod h1:u4Dgl685GwJ93fBxm9onsL662IGksIbx6svMTAEUSFw=
+github.com/common-go/health v0.4.1 h1:MczFaPRqjo7/SaGvuQBikE/7wOyjG+9EitAXN2L/moI=
+github.com/common-go/health v0.4.1/go.mod h1:GFbpmNEjkv3GPiVsp+qE9W3RK2n4IP3CzKpdg/ik4+I=
+github.com/common-go/log v0.0.7 h1:FhXmxuyCboPmcCWVypVvdOOU4Bd2nRpqXC7zKhLSFVc=
+github.com/common-go/log v0.0.7/go.mod h1:HSl/t/UyTyEfdQT5q5xu0KhM8i23+oNRCQu9HKR12EQ=
 github.com/coreos/bbolt v1.3.2/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.13+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-semver v0.3.0/go.mod h1:nnelYz7RCh+5ahJtPPxZlU+153eP4D4r3EedlOD2RNk=

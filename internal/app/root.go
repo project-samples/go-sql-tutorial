@@ -2,14 +2,14 @@ package app
 
 import (
 	"github.com/common-go/log"
-	m "github.com/common-go/middleware"
+	mid "github.com/common-go/log/middleware"
 )
 
 type Root struct {
 	Server     ServerConfig   `mapstructure:"server"`
 	DB         DatabaseConfig `mapstructure:"db"`
 	Log        log.Config     `mapstructure:"log"`
-	MiddleWare m.LogConfig    `mapstructure:"middleware"`
+	MiddleWare mid.LogConfig  `mapstructure:"middleware"`
 }
 
 type ServerConfig struct {

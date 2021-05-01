@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-
 	"github.com/gorilla/mux"
 )
 
