@@ -2,13 +2,12 @@ server:
   name: go-sql-rest-api
   port: 8080
 
-db:
+sql:
+  data_source_name: root:Nevergiveup4vn.@tcp(127.0.0.1:3306)/masterdata?parseTime=true
   driver: mysql
-  data_source_name: devadmin:abcd1234@/masterdata?charset=utf8&parseTime=True&loc=Local
 
 log:
   level: info
-  duration: duration
   map:
     time: "@timestamp"
     msg: message
@@ -16,6 +15,6 @@ log:
 middleware:
   log: true
   skips: /health
-  request: body
+  request: request
   response: response
   size: size

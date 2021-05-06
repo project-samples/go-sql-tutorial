@@ -2,15 +2,15 @@ package app
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
-
 	"github.com/core-go/health"
 	s "github.com/core-go/health/sql"
+	"github.com/core-go/sql"
 	_ "github.com/go-sql-driver/mysql"
 
 	"go-service/internal/handlers"
 	"go-service/internal/services"
+
 )
 
 const (
@@ -30,8 +30,8 @@ type ApplicationContext struct {
 	UserHandler   *handlers.UserHandler
 }
 
-func NewApp(context context.Context, conf DatabaseConfig) (*ApplicationContext, error) {
-	db, err := sql.Open(conf.Driver, conf.DataSourceName)
+func NewApp(context context.Context, root Root) (*ApplicationContext, error) {
+	db, err := sql.OpenByConfig(root.Sql)
 	if err != nil {
 		return nil, err
 	}

@@ -4,9 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"strings"
-
+	s "github.com/core-go/sql"
 	. "go-service/internal/models"
+	"reflect"
+	"strings"
 )
 
 type SqlUserService struct {
@@ -16,6 +17,7 @@ type SqlUserService struct {
 func NewUserService(db *sql.DB) *SqlUserService {
 	return &SqlUserService{DB: db}
 }
+
 
 func (m *SqlUserService) GetAll(ctx context.Context) (*[]User, error) {
 	query := "select id, username, email, phone, date_of_birth from users"
@@ -73,6 +75,15 @@ func (m *SqlUserService) Update(ctx context.Context, user *User) (int64, error) 
 	return result.RowsAffected()
 }
 
+func (m *SqlUserService) Patch(ctx context.Context, user map[string]interface{}) (int64, error) {
+	userTypeOf := reflect.TypeOf(User{})
+	result, err := s.Patch(ctx, m.DB, "users", user, userTypeOf)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
 func (m *SqlUserService) Delete(ctx context.Context, id string) (int64, error) {
 	query := "delete from users where id = ?"
 	stmt, er0 := m.DB.Prepare(query)
@@ -89,3 +100,5 @@ func (m *SqlUserService) Delete(ctx context.Context, id string) (int64, error) {
 	}
 	return rowAffect, nil
 }
+
+
