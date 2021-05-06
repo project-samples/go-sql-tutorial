@@ -3,7 +3,7 @@ server:
   port: 8080
 
 sql:
-  data_source_name: root:Nevergiveup4vn.@tcp(127.0.0.1:3306)/masterdata?parseTime=true
+  data_source_name: root:password@tcp(127.0.0.1:3306)/masterdata?parseTime=true
   driver: mysql
 
 log:
