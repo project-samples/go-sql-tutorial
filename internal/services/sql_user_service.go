@@ -5,9 +5,10 @@ import (
 	"database/sql"
 	"fmt"
 	s "github.com/core-go/sql"
-	. "go-service/internal/models"
 	"reflect"
 	"strings"
+
+	. "go-service/internal/models"
 )
 
 type SqlUserService struct {
@@ -76,8 +77,8 @@ func (m *SqlUserService) Update(ctx context.Context, user *User) (int64, error) 
 }
 
 func (m *SqlUserService) Patch(ctx context.Context, user map[string]interface{}) (int64, error) {
-	userTypeOf := reflect.TypeOf(User{})
-	result, err := s.Patch(ctx, m.DB, "users", user, userTypeOf)
+	userType := reflect.TypeOf(User{})
+	result, err := s.Patch(ctx, m.DB, "users", user, userType)
 	if err != nil {
 		return result, err
 	}
@@ -100,5 +101,3 @@ func (m *SqlUserService) Delete(ctx context.Context, id string) (int64, error) {
 	}
 	return rowAffect, nil
 }
-
-

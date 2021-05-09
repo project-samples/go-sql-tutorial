@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"fmt"
 	"github.com/core-go/health"
 	s "github.com/core-go/health/sql"
 	"github.com/core-go/sql"
@@ -10,7 +9,6 @@ import (
 
 	"go-service/internal/handlers"
 	"go-service/internal/services"
-
 )
 
 const (
@@ -36,13 +34,13 @@ func NewApp(context context.Context, root Root) (*ApplicationContext, error) {
 		return nil, err
 	}
 
-	stmtCreate := fmt.Sprintf("%s", "create database if not exists masterdata")
+	stmtCreate := "create database if not exists masterdata"
 	_, err = db.ExecContext(context, stmtCreate)
 	if err != nil {
 		return nil, err
 	}
 
-	stmtUseDB := fmt.Sprintf("%s", "use masterdata")
+	stmtUseDB := "use masterdata"
 	_, err = db.ExecContext(context, stmtUseDB)
 	if err != nil {
 		return nil, err
