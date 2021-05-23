@@ -24,7 +24,7 @@ create table if not exists users (
 )
 
 type ApplicationContext struct {
-	HealthHandler *health.HealthHandler
+	HealthHandler *health.Handler
 	UserHandler   *handlers.UserHandler
 }
 
@@ -55,7 +55,7 @@ func NewApp(context context.Context, root Root) (*ApplicationContext, error) {
 	userHandler := handlers.NewUserHandler(userService)
 
 	sqlChecker := s.NewHealthChecker(db)
-	healthHandler := health.NewHealthHandler(sqlChecker)
+	healthHandler := health.NewHandler(sqlChecker)
 
 	return &ApplicationContext{
 		HealthHandler: healthHandler,
