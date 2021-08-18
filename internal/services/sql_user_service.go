@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	s "github.com/core-go/sql"
+	"log"
 	"reflect"
 	"strings"
 
@@ -21,23 +22,28 @@ func NewUserService(db *sql.DB) *SqlUserService {
 
 
 func (m *SqlUserService) GetAll(ctx context.Context) (*[]User, error) {
-	query := "select id, username, email, phone, date_of_birth from users"
+	var result []User
+	query := "select id, username, phone, email, url, locked, date_of_birth from users"
+	err := s.Query(ctx, m.DB, &result, query)
+	return &result, err
+	/*
+
 	rows, err := m.DB.QueryContext(ctx, query)
 	if err != nil {
 		return nil, err
 	}
-	var result []User
 	for rows.Next() {
 		var user User
-		err = rows.Scan(&user.Id, &user.Username, &user.Phone, &user.Email, &user.DateOfBirth)
+		err = rows.Scan(&user.Id, &user.Username, &user.Phone, &user.Email, &user.Locked, &user.DateOfBirth)
 		result = append(result, user)
 	}
 	return &result, nil
+	 */
 }
 
 func (m *SqlUserService) Load(ctx context.Context, id string) (*User, error) {
 	var user User
-	query := "select id, username, email, phone, date_of_birth from users where id = ?"
+	query := "select id, username, email, phone, url, active, locked, date_of_birth from users where id = ?"
 	err := m.DB.QueryRowContext(ctx, query, id).Scan(&user.Id, &user.Username, &user.Email, &user.Phone, &user.DateOfBirth)
 	if err != nil {
 		errMsg := err.Error()
@@ -51,12 +57,18 @@ func (m *SqlUserService) Load(ctx context.Context, id string) (*User, error) {
 }
 
 func (m *SqlUserService) Insert(ctx context.Context, user *User) (int64, error) {
+	// stm, args := s.BuildInsertSql("users", user, 0, s.BuildParam)
+	stm, args, _ := s.BuildSql(m.DB,"users", user)
+	log.Print(fmt.Sprintf(stm, args))
+	result, er1 := m.DB.ExecContext(ctx, stm, args...)
+	/*
 	query := "insert into users (id, username, email, phone, date_of_birth) values (?, ?, ?, ?, ?)"
 	stmt, er0 := m.DB.Prepare(query)
 	if er0 != nil {
 		return -1, nil
 	}
 	result, er1 := stmt.ExecContext(ctx, user.Id, user.Username, user.Email, user.Phone, user.DateOfBirth)
+	*/
 	if er1 != nil {
 		return -1, nil
 	}
@@ -64,12 +76,16 @@ func (m *SqlUserService) Insert(ctx context.Context, user *User) (int64, error) 
 }
 
 func (m *SqlUserService) Update(ctx context.Context, user *User) (int64, error) {
+	stm, args := s.BuildUpdateSql("users", user, 0, s.BuildParam)
+	result, er1 := m.DB.ExecContext(ctx, stm, args...)
+	/*
 	query := "update users set username = ?, email = ?, phone = ?, date_of_birth = ? where id = ?"
 	stmt, er0 := m.DB.Prepare(query)
 	if er0 != nil {
 		return -1, nil
 	}
 	result, er1 := stmt.ExecContext(ctx, user.Username, user.Email, user.Phone, user.DateOfBirth, user.Id)
+	 */
 	if er1 != nil {
 		return -1, er1
 	}

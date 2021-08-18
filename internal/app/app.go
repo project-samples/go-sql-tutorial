@@ -33,14 +33,14 @@ func NewApp(context context.Context, root Root) (*ApplicationContext, error) {
 	if err != nil {
 		return nil, err
 	}
-
+/*
 	stmtCreate := "create database if not exists masterdata"
 	_, err = db.ExecContext(context, stmtCreate)
 	if err != nil {
 		return nil, err
 	}
 
-	stmtUseDB := "use masterdata"
+	stmtUseDB := "use masterdata2"
 	_, err = db.ExecContext(context, stmtUseDB)
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func NewApp(context context.Context, root Root) (*ApplicationContext, error) {
 	if err != nil {
 		return nil, err
 	}
-
+*/
 	userService := services.NewUserService(db)
 	userHandler := handlers.NewUserHandler(userService)
 
