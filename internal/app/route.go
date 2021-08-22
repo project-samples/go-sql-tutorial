@@ -25,6 +25,7 @@ func Route(r *mux.Router, ctx context.Context, root Root) error {
 	r.HandleFunc(userPath, app.UserHandler.GetAll).Methods(GET)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Load).Methods(GET)
 	r.HandleFunc(userPath, app.UserHandler.Insert).Methods(POST)
+	r.HandleFunc(userPath + "/test", app.UserHandler.Batch).Methods(POST)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Update).Methods(PUT)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Patch).Methods(PATCH)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Delete).Methods(DELETE)

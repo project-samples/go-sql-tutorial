@@ -58,7 +58,7 @@ func (m *SqlUserService) Load(ctx context.Context, id string) (*User, error) {
 
 func (m *SqlUserService) Insert(ctx context.Context, user *User) (int64, error) {
 	// stm, args := s.BuildInsertSql("users", user, 0, s.BuildParam)
-	stm, args, _ := s.BuildSql(m.DB,"users", user)
+	stm, args, _ := s.BuildToSave(m.DB,"users", user)
 	log.Print(fmt.Sprintf(stm, args))
 	result, er1 := m.DB.ExecContext(ctx, stm, args...)
 	/*
@@ -76,7 +76,7 @@ func (m *SqlUserService) Insert(ctx context.Context, user *User) (int64, error) 
 }
 
 func (m *SqlUserService) Update(ctx context.Context, user *User) (int64, error) {
-	stm, args := s.BuildUpdateSql("users", user, 0, s.BuildParam)
+	stm, args := s.BuildToUpdate("users", user, 0, s.BuildParam)
 	result, er1 := m.DB.ExecContext(ctx, stm, args...)
 	/*
 	query := "update users set username = ?, email = ?, phone = ?, date_of_birth = ? where id = ?"
@@ -116,4 +116,7 @@ func (m *SqlUserService) Delete(ctx context.Context, id string) (int64, error) {
 		return 0, er2
 	}
 	return rowAffect, nil
+}
+func (m *SqlUserService) Batch(ctx context.Context, user *[]User) (int64, error) {
+	return s.SaveBatch(ctx, m.DB, "users", user)
 }

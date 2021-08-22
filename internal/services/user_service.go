@@ -13,4 +13,5 @@ type UserService interface {
 	Update(ctx context.Context, user *User) (int64, error)
 	Patch(ctx context.Context, user map[string]interface{}) (int64, error)
 	Delete(ctx context.Context, id string) (int64, error)
+	Batch(ctx context.Context, user *[]User) (int64, error)
 }

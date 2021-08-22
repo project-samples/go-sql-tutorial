@@ -141,3 +141,19 @@ func respond(w http.ResponseWriter, result interface{}) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
 }
+func (h *UserHandler) Batch(w http.ResponseWriter, r *http.Request) {
+	var user []User
+	er1 := json.NewDecoder(r.Body).Decode(&user)
+	defer r.Body.Close()
+	if er1 != nil {
+		http.Error(w, er1.Error(), http.StatusBadRequest)
+		return
+	}
+
+	result, er2 := h.service.Batch(r.Context(), &user)
+	if er2 != nil {
+		http.Error(w, er1.Error(), http.StatusInternalServerError)
+		return
+	}
+	respond(w, result)
+}
