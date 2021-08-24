@@ -82,6 +82,109 @@
 			"response": []
 		},
 		{
+			"name": "search users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/search?limit=4&sort=username&dateOfBirth.min=1963-03-24T17:00:00.000Z&dateOfBirth.max=1973-11-15T17:00:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"search"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "wolverine",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "james",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "4"
+						},
+						{
+							"key": "sort",
+							"value": "username"
+						},
+						{
+							"key": "dateOfBirth.min",
+							"value": "1963-03-24T17:00:00.000Z"
+						},
+						{
+							"key": "dateOfBirth.max",
+							"value": "1973-11-15T17:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get an user",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -106,7 +209,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/wolverine",
+					"raw": "http://localhost:8080/users/ironman",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -114,7 +217,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"wolverine"
+						"ironman"
 					]
 				}
 			},
@@ -134,7 +237,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"wolverine\",\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n}",
+					"raw": "{\r\n    \"id\": \"01\",\r\n    \"username\": \"user01\",\r\n    \"email\": \"test01@gmail.com\",\r\n    \"url\": \"http://test.com\",\r\n    \"phone\": null,\r\n    \"active\": true,\r\n    \"locked\": false,\r\n    \"dateOfBirth\": \"2009-12-31T04:59:59+07:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,6 +259,77 @@
 			"response": []
 		},
 		{
+			"name": "batch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"01\",\r\n        \"username\": \"user01e\",\r\n        \"email\": \"test@gmail.com4\",\r\n        \"url\": \"\",\r\n        \"phone\": null,\r\n        \"active\": true,\r\n        \"locked\": true,\r\n        \"dateOfBirth\": \"2009-12-31T06:59:59Z\"\r\n    },\r\n    {\r\n        \"id\": \"02\",\r\n        \"username\": \"user02f\",\r\n        \"email\": \"test@gmail.com5\",\r\n        \"url\": \"http://test.com\",\r\n        \"phone\": \"\",\r\n        \"locked\": false,\r\n        \"dateOfBirth\": \"2009-12-31T06:59:59Z\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"08\",\r\n    \"username\": \"user03\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"url\": \"\",\r\n    \"phone\": \"0987654321\",\r\n    \"active\": true,\r\n    \"locked\": true,\r\n    \"dateOfBirth\": \"2009-12-31T04:59:59+07:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "update an user",
 			"request": {
 				"method": "PUT",
@@ -169,7 +343,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n}",
+					"raw": "{\r\n    \"id\": \"ironman\",\r\n    \"username\": \"user01\",\r\n    \"email\": \"\",\r\n    \"url\": \"http://test.com\",\r\n    \"phone\": null,\r\n    \"locked\": false,\r\n    \"dateOfBirth\": \"2009-12-31T04:59:59+07:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -177,7 +351,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/wolverine",
+					"raw": "http://localhost:8080/users/ironman",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -185,7 +359,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"wolverine"
+						"ironman"
 					]
 				}
 			},
@@ -205,7 +379,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\"\n}",
+					"raw": "{\n    \"email\": \"james.howlettC@gmail.com\",\n    \"phone\": \"0987654321C\",\n    \"info\": {\n\t    \"email\": \"james.howlett@gmail.com\",\n\t    \"phone\": \"0987654321\",\n\t    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
