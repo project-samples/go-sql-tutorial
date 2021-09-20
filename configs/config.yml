@@ -2,12 +2,12 @@ server:
   name: go-sql-rest-api
   port: 8080
 
-sql:
-  driver: mysql
-  data_source_name: devadmin:abcd1234@/masterdata2?charset=utf8&parseTime=True&loc=Local
-
+db:
+  driver: godror
+  data_source_name: c##vinasupport/vinasupport@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=localhost)(Port=1521))(CONNECT_DATA=(SID=ORCL)))
 log:
   level: info
+  duration: duration
   map:
     time: "@timestamp"
     msg: message
@@ -15,6 +15,6 @@ log:
 middleware:
   log: true
   skips: /health
-  request: request
+  request: body
   response: response
   size: size

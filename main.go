@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"strconv"
+
 	"github.com/core-go/config"
 	"github.com/core-go/log"
 	mid "github.com/core-go/log/middleware"
-	sv "github.com/core-go/service"
 	"github.com/gorilla/mux"
-	"net/http"
 
 	"go-service/internal/app"
 )
@@ -28,14 +29,16 @@ func main() {
 	if log.IsInfoEnable() {
 		r.Use(mid.Logger(conf.MiddleWare, log.InfoFields, logger))
 	}
-	r.Use(mid.Recover(log.PanicMsg))
+	r.Use(mid.Recover(log.ErrorMsg))
 
-	er2 := app.Route(r, context.Background(), conf)
+	er2 := app.Route(r, context.Background(), conf.DB)
 	if er2 != nil {
 		panic(er2)
 	}
-	fmt.Println(sv.ServerInfo(conf.Server))
-	if er3 := http.ListenAndServe(sv.Addr(conf.Server.Port), r); er3 != nil {
-		fmt.Println(er3.Error())
+	fmt.Println("Start server")
+	server := "8080"
+	if conf.Server.Port > 0 {
+		server = ":" + strconv.Itoa(conf.Server.Port)
 	}
+	http.ListenAndServe(server, r)
 }

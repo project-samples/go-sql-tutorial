@@ -68,11 +68,31 @@ GET /users/wolverine
 #### *Response:*
 ```json
 {
-    "id": "wolverine",
-    "username": "james.howlett",
-    "email": "james.howlett@gmail.com",
-    "phone": "0987654321",
-    "dateOfBirth": "1974-11-16T16:59:59.999Z"
+  "id": "001",
+  "username": "Radhika",
+  "password": "12345678",
+  "email": "radhika_sharma.123@gmail.com",
+  "phone": "0900012345",
+  "dateOfBirth": "1974-11-16T16:59:59.999Z",
+  "interests": [
+    "Play game",
+    "Foot ball",
+    "Basket ball"
+  ],
+   "skills": [
+    {
+      "skill": "Writing fast",
+      "hirable": true
+    }
+  ],
+  "settings": {
+    "userId": "001",
+    "language": "English",
+    "dateformat": "dd/mm/yyyy",
+    "datetimeformat" : "dd-mm-yyyy:hh:mm",
+    "timeformat": "hh:mm:ss",
+    "notification": true
+  }
 }
 ```
 
@@ -80,11 +100,58 @@ GET /users/wolverine
 #### *Request:* POST /users 
 ```json
 {
-    "id": "wolverine",
-    "username": "james.howlett",
-    "email": "james.howlett@gmail.com",
-    "phone": "0987654321",
-    "dateOfBirth": "1974-11-16T16:59:59.999Z"
+  "id": "001",
+  "username": "Radhika",
+  "password": "12345678",
+  "email": "radhika_sharma.123@gmail.com",
+  "phone": "0900012345",
+  "dateOfBirth": "1974-11-16T16:59:59.999Z",
+  "interests": [
+    "Play game",
+    "Foot ball",
+    "Basket ball"
+  ],
+   "skills": [
+    {
+      "skill": "Writing fast",
+      "hirable": true
+    }
+  ],
+  "settings": {
+    "userId": "001",
+    "language": "English",
+    "dateformat": "dd/mm/yyyy",
+    "datetimeformat" : "dd-mm-yyyy:hh:mm",
+    "timeformat": "hh:mm:ss",
+    "notification": true
+  }
+}
+
+{
+  "id": "002",
+  "username" : "Kisiman",
+  "email" : "bob_kisiman_sky@gmail.com",
+  "phone" : "0900349845",
+  "dateOfBirth" : "1982-11-14T16:59:59.999Z",
+  "interests": [
+	"Tennis",
+    "Volley ball",
+    "Basket ball"
+  ],
+  "skills": [
+    {
+      "Skill": "Writing fast",
+      "Hirable": true
+    }
+  ],
+  "settings": {
+    "userId": "002",
+    "language": "France",
+    "dateFormat": "dd-mm-yyyy",
+    "dateTimeFormat" : "dd-mm-yyyy:hh:mm",
+    "timeFormat": "hh:mm",
+    "notification": true
+  }
 }
 ```
 #### *Response:* 1: success, 0: duplicate key, -1: error
@@ -99,10 +166,31 @@ PUT /users/wolverine
 ```
 ```json
 {
-    "username": "james.howlett",
-    "email": "james.howlett@gmail.com",
-    "phone": "0987654321",
-    "dateOfBirth": "1974-11-16T16:59:59.999Z"
+  "id": "001",
+  "username": "Radhika",
+  "password": "12345678",
+  "email": "radhika_sharma.123@gmail.com",
+  "phone": "0900012345",
+  "dateOfBirth": "1974-11-16T16:59:59.999Z",
+  "interests": [
+    "Play game",
+    "Foot ball",
+    "Basket ball"
+  ],
+   "skills": [
+    {
+      "skill": "Writing fast",
+      "hirable": true
+    }
+  ],
+  "settings": {
+    "userId": "001",
+    "language": "English",
+    "dateformat": "dd/mm/yyyy",
+    "datetimeformat" : "dd-mm-yyyy:hh:mm",
+    "timeformat": "hh:mm:ss",
+    "notification": true
+  }
 }
 ```
 #### *Response:* 1: success, 0: not found, -1: error
