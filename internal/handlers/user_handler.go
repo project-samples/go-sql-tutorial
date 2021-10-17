@@ -19,8 +19,8 @@ func NewUserHandler(service UserService) *UserHandler {
 	return &UserHandler{service: service}
 }
 
-func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	result, err := h.service.GetAll(r.Context())
+func (h *UserHandler) All(w http.ResponseWriter, r *http.Request) {
+	result, err := h.service.All(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -107,7 +107,7 @@ func (h *UserHandler) Patch(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Id not match", http.StatusBadRequest)
 		return
 	}
-	json, er1 := sv.BodyToJson(r, user, body, ids, jsonMap, nil)
+	json, er1 := sv.BodyToJsonMap(r, user, body, ids, jsonMap)
 	if er1 != nil {
 		http.Error(w, er1.Error(), http.StatusInternalServerError)
 		return

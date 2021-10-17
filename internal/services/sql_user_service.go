@@ -20,7 +20,7 @@ func NewUserService(db *sql.DB) *SqlUserService {
 }
 
 
-func (m *SqlUserService) GetAll(ctx context.Context) (*[]User, error) {
+func (m *SqlUserService) All(ctx context.Context) (*[]User, error) {
 	query := "select id, username, email, phone, date_of_birth from users"
 	rows, err := m.DB.QueryContext(ctx, query)
 	if err != nil {
