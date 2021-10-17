@@ -78,11 +78,15 @@ func (m *SqlUserService) Update(ctx context.Context, user *User) (int64, error) 
 
 func (m *SqlUserService) Patch(ctx context.Context, user map[string]interface{}) (int64, error) {
 	userType := reflect.TypeOf(User{})
-	result, err := s.Patch(ctx, m.DB, "users", user, userType)
+	jsonColumnMap := s.MakeJsonColumnMap(userType)
+	colMap := s.JSONToColumns(user, jsonColumnMap)
+	keys, _ := s.FindPrimaryKeys(userType)
+	query, args := s.BuildToPatch("users", colMap, keys, s.BuildParam)
+	result, err := m.DB.ExecContext(ctx, query, args...)
 	if err != nil {
-		return result, err
+		return -1, err
 	}
-	return result, nil
+	return result.RowsAffected()
 }
 
 func (m *SqlUserService) Delete(ctx context.Context, id string) (int64, error) {
