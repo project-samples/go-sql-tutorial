@@ -1,4 +1,4 @@
-package services
+package service
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"strings"
 
-	. "go-service/internal/models"
+	. "go-service/internal/model"
 )
 
 type SqlUserService struct {

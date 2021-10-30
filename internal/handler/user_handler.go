@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"encoding/json"
@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"reflect"
 
-	. "go-service/internal/models"
-	. "go-service/internal/services"
+	. "go-service/internal/model"
+	. "go-service/internal/service"
 )
 
 type UserHandler struct {
@@ -99,7 +99,7 @@ func (h *UserHandler) Patch(w http.ResponseWriter, r *http.Request) {
 
 	var user User
 	userType := reflect.TypeOf(user)
-	_, jsonMap := sv.BuildMapField(userType)
+	_, jsonMap, _ := sv.BuildMapField(userType)
 	body, _ := sv.BuildMapAndStruct(r, &user)
 	if len(user.Id) == 0 {
 		user.Id = id
