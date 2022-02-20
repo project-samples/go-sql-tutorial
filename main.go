@@ -24,7 +24,7 @@ func main() {
 
 	log.Initialize(conf.Log)
 	r.Use(mid.BuildContext)
-	logger := mid.NewStructuredLogger()
+	logger := mid.NewLogger()
 	if log.IsInfoEnable() {
 		r.Use(mid.Logger(conf.MiddleWare, log.InfoFields, logger))
 	}
