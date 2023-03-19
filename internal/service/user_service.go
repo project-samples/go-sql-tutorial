@@ -11,7 +11,6 @@ import (
 	. "go-service/internal/model"
 )
 
-
 type UserService interface {
 	All(ctx context.Context) (*[]User, error)
 	Load(ctx context.Context, id string) (*User, error)

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/core-go/config"
+	"github.com/core-go/core"
 	"github.com/core-go/log"
 	mid "github.com/core-go/log/middleware"
-	sv "github.com/core-go/service"
 	"github.com/gorilla/mux"
 	"net/http"
 
@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	var conf app.Root
+	var conf app.Config
 	er1 := config.Load(&conf, "configs/config")
 	if er1 != nil {
 		panic(er1)
@@ -34,8 +34,8 @@ func main() {
 	if er2 != nil {
 		panic(er2)
 	}
-	fmt.Println(sv.ServerInfo(conf.Server))
-	if er3 := http.ListenAndServe(sv.Addr(conf.Server.Port), r); er3 != nil {
+	fmt.Println(core.ServerInfo(conf.Server))
+	if er3 := http.ListenAndServe(core.Addr(conf.Server.Port), r); er3 != nil {
 		fmt.Println(er3.Error())
 	}
 }

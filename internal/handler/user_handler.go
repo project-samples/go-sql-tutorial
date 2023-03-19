@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-	sv "github.com/core-go/service"
+	"github.com/core-go/core"
 	"github.com/gorilla/mux"
 	"net/http"
 	"reflect"
@@ -99,15 +99,15 @@ func (h *UserHandler) Patch(w http.ResponseWriter, r *http.Request) {
 
 	var user User
 	userType := reflect.TypeOf(user)
-	_, jsonMap, _ := sv.BuildMapField(userType)
-	body, _ := sv.BuildMapAndStruct(r, &user)
+	_, jsonMap, _ := core.BuildMapField(userType)
+	body, _ := core.BuildMapAndStruct(r, &user)
 	if len(user.Id) == 0 {
 		user.Id = id
 	} else if id != user.Id {
 		http.Error(w, "Id not match", http.StatusBadRequest)
 		return
 	}
-	json, er1 := sv.BodyToJsonMap(r, user, body, ids, jsonMap)
+	json, er1 := core.BodyToJsonMap(r, user, body, ids, jsonMap)
 	if er1 != nil {
 		http.Error(w, er1.Error(), http.StatusInternalServerError)
 		return
